@@ -5,6 +5,7 @@ import { users as usersData } from './users.data'; // Переименовыва
 import { MainLayout } from '../common/layout/MainLayout';
 import { TableActions } from '../common/TableActions';
 import { ConfirmDeleteModal } from '../common/ConfirmDeleteModal';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 function UsersTable() {
   const [deleteUserId, setDeleteUserId] = useState(null);
@@ -31,7 +32,8 @@ function UsersTable() {
     {
       title: 'Статус',
       dataIndex: 'verificationStatus',
-      render: (status) => (status ? '✅' : '❌'),
+      render: (val) => (<div className='flex justify-center'>{val ? <CheckOutlined style={{color: 'green'}} /> : <CloseOutlined style={{color: 'red'}} />}</div>),
+
     },
     {
       title: 'Час створення',
@@ -60,6 +62,7 @@ function UsersTable() {
         size="middle"
         columns={columns}
         dataSource={data}
+          pagination={{pageSize: 10,pageSizeOptions : null}}
         rowKey="id" // 👈 очень важно!
       />
       <ConfirmDeleteModal
